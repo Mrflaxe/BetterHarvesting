@@ -1,3 +1,8 @@
 # BetterHarvesting
 Minecraft plugin allows harvest crops faster and easier. <br>
-Very simple, no different from the others. Just when you click RMB on ripe crops they will automatically drops loot and will replanted.
+
+Allow to replant grown crops by clicking RMB on it with any hoe. Will consume duarability.<br>
+Takes into account durability enchantments.<br>
+Has hook with the minecraft in-game statistic.
+
+## Versions supported: 1.14+
