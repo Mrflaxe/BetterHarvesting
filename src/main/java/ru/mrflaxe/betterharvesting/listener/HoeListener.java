@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Random;
 
 import org.bukkit.Bukkit;
+import org.bukkit.EntityEffect;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -142,6 +143,15 @@ public class HoeListener implements Listener {
         // When unbreaking level is 1 chance become 50% and etc.
         if(dice <= chanceNotToReduce) {
             int damage = hoeMeta.getDamage();
+            int durability = hoe.getType().getMaxDurability() - damage;
+            
+            if(durability < 1) {
+                player.getInventory().setItem(hand, new ItemStack(Material.AIR));
+                player.playSound(player.getLocation(), Sound.ENTITY_ITEM_BREAK, 1, 1);
+                player.playEffect(EntityEffect.BREAK_EQUIPMENT_MAIN_HAND);
+                return;
+            }
+            
             hoeMeta.setDamage(damage + 1);
             hoe.setItemMeta(hoeMeta);
             
