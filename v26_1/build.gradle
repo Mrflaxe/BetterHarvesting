@@ -1,0 +1,11 @@
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(25)
+    }
+}
+
+dependencies {
+    compileOnly 'io.papermc.paper:paper-api:26.1.2.build.69-stable'
+    compileOnly project(':common')
+    compileOnly project(':v1_20_5')
+}

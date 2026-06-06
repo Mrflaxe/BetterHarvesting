@@ -1,0 +1,38 @@
+plugins {
+    id 'com.gradleup.shadow' version '8.3.6'
+}
+
+dependencies {
+    compileOnly 'org.spigotmc:spigot-api:1.14.4-R0.1-SNAPSHOT'
+    implementation project(':common')
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.release = 8
+}
+
+processResources {
+    def tokens = [
+        pluginName   : 'BetterHarvesting',
+        pluginVersion: project.version.toString()
+    ]
+    inputs.properties(tokens)
+    filesMatching('plugin.yml') {
+        expand(tokens)
+    }
+}
+
+def versionModules = [':v1_14', ':v1_20_5', ':v26_1']
+
+shadowJar {
+    archiveBaseName.set('BetterHarvesting')
+    archiveClassifier.set('')
+
+    versionModules.each { modulePath ->
+        def jarTask = project(modulePath).tasks.named('jar')
+        dependsOn(jarTask)
+        from(zipTree(jarTask.get().archiveFile))
+    }
+}
+
+build.dependsOn(shadowJar)

@@ -1,5 +1,0 @@
-main: ru.mrflaxe.betterharvesting.BetterHarvesting
-name: ${project.name}
-version: ${project.version}
-author: Mrflaxe
-api-version: 1.14

@@ -1,0 +1,11 @@
+plugins {
+    id 'org.gradle.toolchains.foojay-resolver-convention' version '1.0.0'
+}
+
+rootProject.name = 'BetterHarvesting'
+
+include 'plugin'
+include 'common'
+include 'v1_14'
+include 'v1_20_5'
+include 'v26_1'
