@@ -4,12 +4,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Random;
 
-import org.bukkit.Bukkit;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
-import org.bukkit.Sound;
-import org.bukkit.Statistic;
+import org.bukkit.*;
 import org.bukkit.advancement.Advancement;
 import org.bukkit.advancement.AdvancementProgress;
 import org.bukkit.block.Block;
@@ -73,9 +68,12 @@ public class HoeListener implements Listener {
 
         ItemStack hoe = event.getItem();
         Player player = event.getPlayer();
+        GameMode gameMode = player.getGameMode();
         EquipmentSlot hand = event.getHand();
 
-        reduceDurability(player, hoe, hand);
+        if (gameMode != GameMode.CREATIVE) {
+            reduceDurability(player, hoe, hand);
+        }
 
         @SuppressWarnings("unchecked")
         List<ItemStack> drops = (List<ItemStack>) crop.getDrops(hoe);
@@ -98,7 +96,9 @@ public class HoeListener implements Listener {
         cropLocation.getWorld().playSound(cropLocation, Sound.ITEM_HOE_TILL, 1, 1);
 
         updatePlayerStatistic(player, hoe, blockType);
-        addAdvancementIfHasNot(player);
+        if (gameMode != GameMode.CREATIVE) {
+            addAdvancementIfHasNot(player);
+        }
 
         if (size != 0) {
             Location location = crop.getLocation();
